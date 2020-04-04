@@ -19,7 +19,7 @@ node {
 	stage("Copy Artifacts"){
 		sh """
 		scp -r * centos@dev1.awsumar.com:/tmp              
-		ssh centos@dev1.awsumar.com                        sudo cp -r /tmp/index/html/  /var/www/html/
+		ssh centos@dev1.awsumar.com                        sudo cp -r /tmp/index.html /var/www/html/
 		ssh centos@dev1.awsumar.com                        sudo cp -r /tmp/style.css /var/www/html/
 		ssh centos@dev1.awsumar.com                        sudo chown centos:centos /var/www/html/
 		ssh centos@dev1.awsumar.com                         sudo chmod 777 /var/www/html/*
