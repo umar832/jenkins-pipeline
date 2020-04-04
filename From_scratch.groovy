@@ -1,5 +1,5 @@
 node {
-	// Bellow lines sets "Discards builds more than 5 "
+
     properties([
 		buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), 
 
@@ -27,7 +27,7 @@ node {
 		"""
 }
 	stage("Restart web server"){
-		sh "ssh centos@${ENVIR}               sudo systemctl restart httpd"
+		sh "ssh centos@jenkins_worker1.awsumar.com             sudo systemctl restart httpd"
 }
 	stage("Slack"){
 		slackSend color: '#BADA55', message: 'Hello, World!'
