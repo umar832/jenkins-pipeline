@@ -5,6 +5,13 @@ node {
 
 		// Bellow line trigers this job every time
 		pipelineTriggers([pollSCM('* * * * * ')])
+		 parameters([choice(choices: [
+			 'dev1.awsumar.com', 
+			 'prod1.awsumar.com', 
+			 'qa1.awsumar.com', 
+			 'stage1.awsumar.com'],
+			  description: 'please choice envorment',
+			   name: 'ENVIR')]),
 		])
 
 
