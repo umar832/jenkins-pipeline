@@ -16,7 +16,7 @@ node {
 
 		// Pulls a repo from developer
 	stage("Pull Repo"){
-		 git clone 'https://github.com/farrukh90/cool_website.git'
+		 git 'https://github.com/farrukh90/cool_website.git'
 	}
 		//Installs web server on different environment
 	stage("Install Prerequisites"){
