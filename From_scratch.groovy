@@ -13,18 +13,23 @@ node {
 }
 	stage("Install Prerequiset"){
 		sh """
-		sudo yum install httpd -y
-		sudo cp -r * /var/www/html/
-		sudo systemctl start httpd
+		ssh jenkins_worker1.awsumar.com   sudo yum install httpd -y
 		"""
 }
-	stage("Stage3"){
-		echo "hello"
+	stage("Copy Artifacts"){
+		sh """
+		scp -r * centos@jenkins_worker1.awsumar.com:/tmp
+		ssh centos@jenkins_worker1.awsumar.com                        sudo cp  -r /tmp/index.html /var/www/html/
+		ssh centos@jenkins_worker1.awsumar.com                        sudo cp  -r /tmp/style.css /var/www/html/
+		ssh centos@jenkins_worker1.awsumar.com                        sudo chow centos:centos /var/www/html/
+		ssh centos@jenkins_worker1.awsumar.com                        sudo chmod 777  /var/www/html/*
+
+		"""
 }
-	stage("Stage4"){
-		echo "hello"
+	stage("Restart web server"){
+		ssh "centos@jenkins_worker1.awsumar.com                        sudo systemctl restart httpd"
 }
-	stage("Stage5"){
-		echo "hello"
+	stage("Slack"){
+		slackSend color: 'BADA55', message: 'Hello Wordl!'
 	}
 }
