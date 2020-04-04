@@ -13,7 +13,7 @@ node {
 }
 	stage("Install Prerequiset"){
 		sh """
-		ssh jenkins_worker1.awsumar.com   sudo yum install httpd -y
+		ssh  centos@jenkins_worker1.awsumar.com   sudo yum install httpd -y
 		"""
 }
 	stage("Copy Artifacts"){
