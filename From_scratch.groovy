@@ -1,5 +1,11 @@
 node {
-    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), pipelineTriggers([cron('* * * * *')])])
+	// Bellow lines sets "Discards builds more than 5 "
+    properties([
+		buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), 
+
+		// Bellow line trigers this job every time
+		pipelineTriggers([pollSCM('* * * * * ')])
+		])
 
 
     stage("Stage1"){
