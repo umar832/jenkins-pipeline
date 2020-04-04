@@ -1,41 +1,46 @@
 node {
-
-    properties([
+	properties([
+		// Below line sets "Discard Builds more than 5"
 		buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), 
-
-		// Bellow line trigers this job every time
-		pipelineTriggers([pollSCM('* * * * * ')])
-		 parameters([choice(choices: [
-			 'dev1.awsumar.com', 
-			 'prod1.awsumar.com', 
-			 'qa1.awsumar.com', 
-			 'stage1.awsumar.com'],
-			  description: 'please choice envorment',
-			   name: 'ENVIR')]),
+		
+		// Below line triggers this job every minute
+		pipelineTriggers([pollSCM('* * * * *')]),
+		parameters([choice(choices: [
+			'dev1.awsumar.com', 
+			'qa1.awsumar.com', 
+			'stage1.awsumar.com', 
+			'prod1.awsumar.com'], 
+			description: 'Please choose an environment', 
+			name: 'ENVIR')]), 
 		])
 
-
-    stage("Pull Repo"){
-		git 'https://github.com/farrukh90/cool_website.git'
-}
-	stage("Install Prerequiset"){
+	    
+		// Pulls a repo from developer
+	stage("Pull Repo"){
+		checkout([$class: 'GitSCM', branches: [[name: '*/FarrukH']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/cool_website.git']]])
+	}
+		//Installs web server on different environment
+	stage("Install Prerequisites"){
 		sh """
-		ssh centos@dev1.awsumar.com                    sudo yum install httpd -y
+		ssh centos@${ENVIR}                 sudo yum install httpd -y
 		"""
-}
-	stage("Copy Artifacts"){
+	}
+		//Copies over developers files to different environment
+	stage("Copy artifacts"){
 		sh """
-		scp -r * centos@dev1.awsumar.com:/tmp              
-		ssh centos@dev1.awsumar.com                        sudo cp -r /tmp/index.html /var/www/html/
-		ssh centos@dev1.awsumar.com                        sudo cp -r /tmp/style.css /var/www/html/
-		ssh centos@dev1.awsumar.com                        sudo chown centos:centos /var/www/html/
-		ssh centos@dev1.awsumar.com                         sudo chmod 777 /var/www/html/*
-
+		scp -r *  centos@${ENVIR}:/tmp
+		ssh centos@${ENVIR}                 sudo cp -r /tmp/index.html /var/www/html/
+		ssh centos@${ENVIR}                 sudo cp -r /tmp/style.css /var/www/html/
+		ssh centos@${ENVIR}				    sudo chown centos:centos /var/www/html/
+		ssh centos@${ENVIR}				    sudo chmod 777 /var/www/html/*
 		"""
-}
+	}
+		//Restarts web server
 	stage("Restart web server"){
-		sh "ssh centos@dev1.awsumar.com             sudo systemctl restart httpd"
-}
+		sh "ssh centos@${ENVIR}               sudo systemctl restart httpd"
+	}
+
+		//Sends a message to slack
 	stage("Slack"){
 		slackSend color: '#BADA55', message: 'Hello, World!'
 	}
