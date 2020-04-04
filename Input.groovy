@@ -1,4 +1,4 @@
-ode {
+node {
 	stage("Stage1"){
 		echo "hello"
 	}
