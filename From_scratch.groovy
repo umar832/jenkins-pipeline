@@ -19,7 +19,7 @@ node {
 		//Copies over developers files to different environment
 	stage("Copy artifacts"){
 		sh """
-		scp -r *  centos@${ENVIR}:/tmp
+		scp -r *  centos@dev1.awsumar.com:/tmp
 		ssh centos@dev1.awsumar.com                sudo cp -r /tmp/index.html /var/www/html/
 		ssh centos@dev1.awsumar.com                sudo cp -r /tmp/style.css /var/www/html/
 		ssh centos@dev1.awsumar.com			    sudo chown centos:centos /var/www/html/
