@@ -1,21 +1,24 @@
-ode {
+node {
 	properties([
 		// Below line sets "Discard Builds more than 5"
-		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')),pipelineTriggers([pollSCM('* * * * * ')])
+		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')),
+		disableConcurrentBuilds(),
 		// Below line triggers this job every minute
+		pipelineTriggers([pollSCM('* * * * * ')]),
+		parameters([
 			// Asks for Environment to Build
-			parameters([choice(choices: 
-			'dev1.theaizada.com', 
-			'qa1.theaizada.com', 
-			'stage1.theaizada.com', 
-			'prod1.theaizada.com'], 
+			choice(choices: [
+			'dev1.awsumar.com', 
+			'qa1.awsumar.com', 
+			'stage1.awsumar.com', 
+			'prod1.awsumar.com'], 
 			description: 'Please choose an environment', 
-			name: 'ENVIR')
+			name: 'ENVIR'),
 		])
 
 		// Pulls a repo from developer
 	stage("Pull Repo"){
-      git 'https://github.com/farrukh90/cool_website.git'
+		checkout([$class: 'GitSCM', branches: [[name: '*/FarrukH']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/cool_website.git']]])
 	}
 		//Installs web server on different environment
 	stage("Install Prerequisites"){
