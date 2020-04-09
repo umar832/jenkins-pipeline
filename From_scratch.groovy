@@ -4,7 +4,7 @@ ode {
 		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')),pipelineTriggers([pollSCM('* * * * * ')])
 		// Below line triggers this job every minute
 			// Asks for Environment to Build
-			choice(choices: [
+			parameters([choice(choices: 
 			'dev1.theaizada.com', 
 			'qa1.theaizada.com', 
 			'stage1.theaizada.com', 
