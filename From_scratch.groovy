@@ -1,5 +1,7 @@
 node {
-properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), pipelineTriggers([pollSCM('* * * * * ')])])
+properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5'))
+ pipelineTriggers([pollSCM('* * * * * ')])
+ ])
 	stage("Stage1"){
 		echo "hello"
 }
