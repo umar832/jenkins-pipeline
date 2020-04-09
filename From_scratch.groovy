@@ -4,7 +4,7 @@ node {
 		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5'))
 		
 		// Below line triggers this job every minute
-		pipelineTriggers([pollSCM( '* * * * *')])
+		pipelineTriggers([pollSCM('* * * * *')])
 		parameters([choice(choices: [
 			'dev1.awsumar.com', 
 			'qa1.awsumar.com', 
@@ -21,7 +21,7 @@ node {
 		//Installs web server on different environment
 	stage("Install Prerequisites"){
 		sh """
-		ssh centos@${ENVIR}                 sudo yum install httpd -y
+		ssh centos@${ENVIR}                sudo yum install httpd -y
 		"""
 	}
 		//Copies over developers files to different environment
