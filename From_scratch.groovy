@@ -4,7 +4,7 @@ node {
 		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5'))
 		
 		// Below line triggers this job every minute
-		pipelineTriggers([pollSCM('* * * * * ')])
+		pipelineTriggers([pollSCM( '* * * * *')])
 		parameters([choice(choices: [
 			'dev1.awsumar.com', 
 			'qa1.awsumar.com', 
