@@ -18,7 +18,7 @@ node {
 
 		// Pulls a repo from developer
 	stage("Pull Repo"){
-		checkout([$class: 'GitSCM', branches: [[name: '*/FarrukH']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/cool_website.git']]])
+		git 'https://github.com/farrukh90/cool_website.git'
 	}
 		//Installs web server on different environment
 	stage("Install Prerequisites"){
