@@ -4,7 +4,8 @@ node {
 		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5'))
 		
 		// Below line triggers this job every minute
-		pipelineTriggers([pollSCM('* * * * *')])])
+		pipelineTriggers([pollSCM('* * * * *')])
+		])
 
 		// Pulls a repo from developer
 	stage("Pull Repo"){
