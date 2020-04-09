@@ -4,7 +4,6 @@ node {
 		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5'))
 		// Below line triggers this job every minute
 		pipelineTriggers([pollSCM('* * * * *')]),
-		parameters([
 			// Asks for Environment to Build
 			choice(choices: [
 			'dev1.awsumar.com', 
@@ -13,6 +12,8 @@ node {
 			'prod1.awsumar.com'], 
 			description: 'Please choose an environment', 
 			name: 'ENVIR'),
+         
+		 ])
 
 		// Pulls a repo from developer
 	stage("Pull Repo"){
