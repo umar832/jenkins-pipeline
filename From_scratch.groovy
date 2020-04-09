@@ -3,7 +3,6 @@ ode {
 		// Below line sets "Discard Builds more than 5"
 		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')),pipelineTriggers([pollSCM('* * * * * ')])
 		// Below line triggers this job every minute
-		parameters([
 			// Asks for Environment to Build
 			choice(choices: [
 			'dev1.theaizada.com', 
@@ -16,7 +15,7 @@ ode {
 
 		// Pulls a repo from developer
 	stage("Pull Repo"){
-		checkout([$class: 'GitSCM', branches: [[name: '*/FarrukH']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/cool_website.git']]])
+      git 'https://github.com/farrukh90/cool_website.git'
 	}
 		//Installs web server on different environment
 	stage("Install Prerequisites"){
