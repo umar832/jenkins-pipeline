@@ -4,8 +4,8 @@ node {
 		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), pipelineTriggers([pollSCM('* * * * * ')])])
 	
 	
-	// Pulls a repo from developer
-	stage("Pull Repo"){
+	// Pulls a Repository from developer
+	stage("Pull Repository"){
 		git 'https://github.com/umar832/Cool_webiste.git'
 	}
 		//Installs web server on different environment
