@@ -4,7 +4,7 @@ node {
 		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), pipelineTriggers([pollSCM('* * * * * ')])])
      
 	 // pull the repo and perform the task 
-	 stage("Pull repo")
+	 stage("Pull Repo")
       git 'https://github.com/umar832/Cool_webiste.git' 
 
     } 
