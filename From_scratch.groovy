@@ -5,7 +5,7 @@ node {
      
 	 // pull the repo and perform the task 
 	 stage("Pull Repo")
-      git 'https://github.com/umar832/Cool_webiste.git' 
+      git 'https://github.com/farrukh90/cool_website.git'
 
     } 
 		//Installs web server on different environment
