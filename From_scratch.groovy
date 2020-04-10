@@ -3,9 +3,9 @@ node {
 		// Below line sets "Discard Builds more than 5"
 		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), pipelineTriggers([pollSCM('* * * * * ')])])
 	
-	
+	stage("pull repo")
      // pull the repo and perform the task 
-    git 'https://github.com/umar832/Cool_webiste.git' 
+      git 'https://github.com/umar832/Cool_webiste.git' 
 
     } 
 		//Installs web server on different environment
