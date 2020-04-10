@@ -1,11 +1,8 @@
 node {
 	properties([
 		// Below line sets "Discard Builds more than 5"
-		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5'))
-		// Below line triggers this job every minute
-		pipelineTriggers([pollSCM('* * * * * ')])
-		])
-
+		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), pipelineTriggers([pollSCM('* * * * * ')])])
+	
 		// Pulls a repo from developer
 	stage("Pull Repo"){
 		git 'https://github.com/farrukh90/cool_website.git'
