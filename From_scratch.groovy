@@ -4,10 +4,11 @@ node {
 		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), pipelineTriggers([pollSCM('* * * * * ')])])
 	
 	
-	// Pulls a Repo from developer
-	stage("Pull Repo")
-		git 'https://github.com/umar832/Cool_webiste.git'
-	}
+	stage("Stage1"){ 
+     // pull the repo and perform the task 
+    git 'https://github.com/umar832/Cool_webiste.git' 
+
+    } 
 		//Installs web server on different environment
 	stage("Install Prerequisites"){
 		sh """
