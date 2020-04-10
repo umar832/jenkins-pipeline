@@ -2,9 +2,9 @@ node {
 	properties([
 		// Below line sets "Discard Builds more than 5"
 		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), pipelineTriggers([pollSCM('* * * * * ')])])
-	
-	stage("pull repo")
-     // pull the repo and perform the task 
+     
+	 // pull the repo and perform the task 
+	 stage("Pull repo")
       git 'https://github.com/umar832/Cool_webiste.git' 
 
     } 
