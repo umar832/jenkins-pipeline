@@ -1,12 +1,10 @@
 node {
 	properties([
 		// Below line sets "Discard Builds more than 5"
-		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')),
+		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), 
 		// Below line triggers this job every minute
 		pipelineTriggers([pollSCM('* * * * * ')])
-		parameters([
-			// Asks for Environment to Build
-			choice(choices: [
+		parameters([choice(choices: [
 			'dev1.awsumar.com', 
 			'qa1.awsumar.com', 
 			'stage1.awsumar.com', 
