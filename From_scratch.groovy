@@ -1,6 +1,8 @@
 node {
+	 
+	properties([
 		// Below line sets "Discard Builds more than 5"
-		properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), 
+		buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), 
 		// Below line triggers this job every minute
 		pipelineTriggers([pollSCM('* * * * * ')])
 		parameters([choice(choices: [
@@ -9,7 +11,7 @@ node {
 			'stage1.awsumar.com', 
 			'prod1.awsumar.com'], 
 			description: 'Please choose an environment', 
-			name: 'ENVIR'),
+			name: ENVIR')]),
 		])
 
 		// Pulls a repo from developer
