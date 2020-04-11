@@ -1,7 +1,8 @@
-nnode {
+node {
 	properties([
 		// Below line sets "Discard Builds more than 5"
-		buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')),
+		buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')), 
+		disableConcurrentBuilds(),
 		// Below line triggers this job every minute
 		pipelineTriggers([pollSCM('* * * * *')]),
 		parameters([
@@ -12,12 +13,31 @@ nnode {
 			'stage1.awsumar.com', 
 			'prod1.awsumar.com'], 
 			description: 'Please choose an environment', 
-			name: 'ENVIR')]), 
+			name: 'ENVIR'),
+
+			// Asks for version
+			choice(choices: [
+				'v0.1', 
+				'v0.2', 
+				'v0.3', 
+				'v0.4', 
+				'v0.5'
+				], 
+			description: 'Which version should we deploy?', 
+			name: 'Version'),
+
+
+			// Asks for an input
+			string(defaultValue: 'v1', 
+			description: 'Please enter version number', 
+			name: 'APP_VERSION', 
+			trim: true)
+			])
 		])
 
 		// Pulls a repo from developer
 	stage("Pull Repo"){
-		git 'https://github.com/farrukh90/cool_website.git'
+		checkout([$class: 'GitSCM', branches: [[name: '*/FarrukH']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/farrukh90/cool_website.git']]])
 	}
 		//Installs web server on different environment
 	stage("Install Prerequisites"){
