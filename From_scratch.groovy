@@ -12,7 +12,7 @@ nnode {
 			'stage1.awsumar.com', 
 			'prod1.awsumar.com'], 
 			description: 'Please choose an environment', 
-			name: 'ENVIR'),
+			name: 'ENVIR')]), 
 		])
 
 		// Pulls a repo from developer
