@@ -9,7 +9,7 @@ nnode {
 			choice(choices: [
 			'dev1.awsumar.com', 
 			'qa1.awsumar.com', 
-			'stage1.awsumar.com, 
+			'stage1.awsumar.com', 
 			'prod1.awsumar.com'], 
 			description: 'Please choose an environment', 
 			name: 'ENVIR'),
