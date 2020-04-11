@@ -6,13 +6,14 @@ node {
 		// Below line triggers this job every minute
        pipelineTriggers([pollSCM('* * * * * ')])
 	   parameters([
-		   choice(choices: [
-		   'dev1.awsumar.com', 
-		   'qa1.awsumar.com'
-		   'stage1.awsumar.com', 
-		   'prod1.awsumar.com'], 
-		   description: 'Please choose an environment', 
-			name: 'ENVIR')]), 
+			// Asks for Environment to Build
+			choice(choices: [
+			'dev1.awsumar.com', 
+			'qa1.awsumar.com', 
+			'stage1.awsumar.com', 
+			'prod1.awsumar.com'], 
+			description: 'Please choose an environment', 
+			name: 'ENVIR'),
 	   ])
 
 		// Pulls a repo from developer
